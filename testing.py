@@ -1,48 +1,41 @@
 import requests
 
-def display_spell(spell_data):
-    print(f"Name: {spell_data['name']}")
-    print(f"Level: {spell_data['level']}")
-    print(f"Index: {spell_data['index']}")
-    print(f"URL: {spell_data['url']}")
-    print()
+# API Base URL
+API_URL = "https://www.dnd5eapi.co/api/spells/"
 
-def main():
-    url = "https://www.dnd5eapi.co/api/2014/spells"
-    headers = {'Accept': 'application/json'}
+# Dictionary to store spells
+spellbook = {}
 
-    response = requests.get(url, headers=headers)
-
+def search_spell(spell_name):
+    """Search for a spell in the D&D API and return its details."""
+    response = requests.get(API_URL + spell_name.lower().replace(" ", "-"))
     if response.status_code == 200:
-        spells_data = response.json()
-        spells = spells_data['results']
+        spell_data = response.json()
+        return {
+            "name": spell_data["name"],
+            "level": spell_data["level"],
+            "description": spell_data["desc"][0]  # First part of the description
+        }
+    else:
+        print("Spell not found.")
+        return None
 
-        print("Welcome to the D&D 5e Spellbook!")
-        print(f"Total Spells: {spells_data['count']}\n")
+def add_spell_to_spellbook(spell_name):
+    """Add a spell to the spellbook if found."""
+    spell = search_spell(spell_name)
+    if spell:
+        spellbook[spell_name] = spell
+        print(f"Added {spell_name} to your spellbook!")
 
-        while True:
-            print("Commands:")
-            print("1 - List all spells")
-            print("2 - Search for a spell by name")
-            print("3 - Exit")
+def view_spellbook():
+    """Display all stored spells."""
+    if not spellbook:
+        print("Your spellbook is empty.")
+    else:
+        for spell in spellbook.values():
+            print(f"{spell['name']} (Level {spell['level']}): {spell['description']}")
 
-            choice = input("Enter your choice: ")
 
-            if choice == '1':
-                print("\nList of Spells:")
-                for spell in spells:
-                    display_spell(spell)
-            elif choice == '2':
-                spell_name = input("Enter the spell name: ").lower()
-                matching_spells = [spell for spell in spells if spell_name in spell['name'].lower()]
-                print("\nMatching Spells:")
-                for spell in matching_spells:
-                    display_spell(spell)
-            elif choice == '3':
-                print("Goodbye!")
-                break
-            else:
-                print("Invalid choice. Please select a valid option.")
-
-if __name__ == "__main__":
-    main()
+# Example usage
+add_spell_to_spellbook("fireball")
+# view_spellbook()
