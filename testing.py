@@ -11,11 +11,12 @@ def search_spell(spell_name):
     response = requests.get(API_URL + spell_name.lower().replace(" ", "-"))
     if response.status_code == 200:
         spell_data = response.json()
-        return {
+        mydict = {
             "name": spell_data["name"],
             "level": spell_data["level"],
             "description": spell_data["desc"][0]  # First part of the description
         }
+        print(mydict)
     else:
         print("Spell not found.")
         return None
@@ -37,5 +38,8 @@ def view_spellbook():
 
 
 # Example usage
-add_spell_to_spellbook("fireball")
-# view_spellbook()
+inp = input("Search A Spell: ")
+search_spell(inp)
+spell = input("Add A Spell: ")
+add_spell_to_spellbook(inp)
+view_spellbook()
