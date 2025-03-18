@@ -8,7 +8,7 @@ spellbook = {}
 
 def search_spell(spell_name):
     """Search for a spell in the D&D API and return its details."""
-    response = requests.get(API_URL + spell_name.lower().replace(" ", "-"))
+    response = requests.get(API_URL + spell_name)
     if response.status_code == 200:
         spell_data = response.json()
         return {
@@ -37,5 +37,4 @@ def view_spellbook():
 
 
 # Example usage
-add_spell_to_spellbook("fireball")
-view_spellbook()
+

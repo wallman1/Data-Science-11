@@ -1,43 +1,162 @@
-import customtkinter
-#from testing import *
+import tkinter as tk
+from tkinter import ttk
+from Main import *
 
-class App(customtkinter.CTk):
-    def __init__(self):
-        super().__init__()
+LARGEFONT =("Verdana", 35)
 
-        self.title("my app")
-        self.geometry("400x180")
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure((0, 1), weight=1)
+class tkinterApp(tk.Tk):
+    
+    # __init__ function for class tkinterApp 
+    def __init__(self, *args, **kwargs): 
+        
+        # __init__ function for class Tk
+        tk.Tk.__init__(self, *args, **kwargs)
+        
+        # creating a container
+        container = tk.Frame(self) 
+        container.pack(side = "top", fill = "both", expand = True) 
 
-        self.button_1 = customtkinter.CTkButton(self, text="Button 1")
-        self.button_1.grid(row=0, column=0, padx=10, pady=(10, 0), sticky="w")
-        self.button_2 = customtkinter.CTkButton(self, text="Button 2")
-        self.button_2.grid(row=1, column=0, padx=10, pady=(10, 0), sticky="w")
-        self.button = customtkinter.CTkButton(self, text="my button", command=self.button_callback)
-        self.button.grid(row=3, column=0, padx=10, pady=10, sticky="ew")
-        def button_callback(self):
-           scene2.mainloop()
+        container.grid_rowconfigure(0, weight = 1)
+        container.grid_columnconfigure(0, weight = 1)
+
+        # initializing frames to an empty array
+        self.frames = {} 
+
+        # iterating through a tuple consisting
+        # of the different page layouts
+        for F in (StartPage, Page1, Page2):
+
+            frame = F(container, self)
+
+            # initializing frame of that object from
+            # startpage, page1, page2 respectively with 
+            # for loop
+            self.frames[F] = frame 
+
+            frame.grid(row = 0, column = 0, sticky ="nsew")
+
+        self.show_frame(StartPage)
+
+    # to display the current frame passed as
+    # parameter
+    def show_frame(self, cont):
+        frame = self.frames[cont]
+        frame.tkraise()
+
+# first window frame startpage
+
+class StartPage(tk.Frame):
+    def __init__(self, parent, controller): 
+        tk.Frame.__init__(self, parent)
+        
+        # label of frame Layout 2
+        label = ttk.Label(self, text ="Startpage", font = LARGEFONT)
+        
+        # putting the grid in its place by using
+        # grid
+        label.grid(row = 0, column = 4, padx = 10, pady = 10) 
+
+        button1 = ttk.Button(self, text ="Page 1",
+        command = lambda : controller.show_frame(Page1))
+    
+        # putting the button in its place by
+        # using grid
+        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
+
+        ## button to show frame 2 with text layout2
+        button2 = ttk.Button(self, text ="Page 2",
+        command = lambda : controller.show_frame(Page2))
+    
+        # putting the button in its place by
+        # using grid
+        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
+
+        
 
 
-class Scene2(customtkinter.CTk):
-    def __init__(self):
-        super().__init__()
+# second window frame page1 
+class Page1(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        
+        tk.Frame.__init__(self, parent)
+        label = ttk.Label(self, text ="Search Spell", font = LARGEFONT)
+        label.grid(row = 0, column = 4, padx = 10, pady = 10)
 
-        self.title("my app")
-        self.geometry("400x180")
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure((0, 1), weight=1)
+        # button to show frame 2 with text
+        # layout2
+        button1 = ttk.Button(self, text ="StartPage",
+                            command = lambda : controller.show_frame(StartPage))
 
-        self.button_1 = customtkinter.CTkButton(self, text="Button 1", command=self)
-        self.button_1.grid(row=0, column=0, padx=10, pady=(10, 0), sticky="w")
-        self.button_2 = customtkinter.CTkButton(self, text="Button 2")
-        self.button_2.grid(row=1, column=0, padx=10, pady=(10, 0), sticky="w")
-        self.button = customtkinter.CTkButton(self, text="my button", command=self.button_callback)
-        self.button.grid(row=3, column=0, padx=10, pady=10, sticky="ew")
-        def button_callback(self):
-           app.mainloop() 
+        # putting the button in its place 
+        # by using grid
+        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
+        name_entry = tk.Entry(self, font=('calibre',10,'normal'))
+        name_entry.grid(row = 1, column = 2, padx = 10, pady = 10)
+        # button to show frame 2 with text
+        # layout2
+        def getandmove():
+            print(name_entry.get())
+            entry1 = name_entry.get()
+            controller.show_frame(Page2)
+        button3 = ttk.Button(self, text="Get text", command=lambda: getandmove())
+        button3.grid(row = 1, column = 3, padx =10 , pady =10)
+        button2 = ttk.Button(self, text ="Page 2",
+                            command = lambda : controller.show_frame(Page2))
+    
+        # putting the button in its place by 
+        # using grid
+        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
 
-scene2 = Scene2()
-app = App()
+# third window frame page2
+class Page2(tk.Frame): 
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = ttk.Label(self, text =entry1, font = LARGEFONT)
+        label.grid(row = 0, column = 4, padx = 10, pady = 10)
+
+        # button to show frame 2 with text
+        # layout2
+        button1 = ttk.Button(self, text ="Page 1",
+                            command = lambda : controller.show_frame(Page1))
+    
+        # putting the button in its place by 
+        # using grid
+        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
+
+        # button to show frame 3 with text
+        # layout3
+        button2 = ttk.Button(self, text ="Startpage",
+                            command = lambda : controller.show_frame(StartPage))
+    
+        # putting the button in its place by
+        # using grid
+        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
+
+class Page3(tk.Frame): 
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = ttk.Label(self, text ="Page 2", font = LARGEFONT)
+        label.grid(row = 0, column = 4, padx = 10, pady = 10)
+
+        # button to show frame 2 with text
+        # layout2
+        button1 = ttk.Button(self, text ="Page 1",
+                            command = lambda : controller.show_frame(Page1))
+    
+        # putting the button in its place by 
+        # using grid
+        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
+
+        # button to show frame 3 with text
+        # layout3
+        button2 = ttk.Button(self, text ="Startpage",
+                            command = lambda : controller.show_frame(StartPage))
+    
+        # putting the button in its place by
+        # using grid
+        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
+
+# Driver Code
+app = tkinterApp()
 app.mainloop()
