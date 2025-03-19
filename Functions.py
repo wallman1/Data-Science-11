@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
-from Main import *
+from Main import search_spell
 
 LARGEFONT =("Verdana", 35)
-
+smallfont =("Verdana", 11)
 class tkinterApp(tk.Tk):
     
     # __init__ function for class tkinterApp 
@@ -98,7 +98,9 @@ class Page1(tk.Frame):
         def getandmove():
             print(name_entry.get())
             entry1 = name_entry.get()
-            controller.show_frame(Page2)
+            txt = search_spell(entry1)
+            label2 = ttk.Label(self, text =txt, font = smallfont)
+            label2.grid(row = 2, column = 2, padx = 10, pady = 10)
         button3 = ttk.Button(self, text="Get text", command=lambda: getandmove())
         button3.grid(row = 1, column = 3, padx =10 , pady =10)
         button2 = ttk.Button(self, text ="Page 2",
@@ -112,7 +114,7 @@ class Page1(tk.Frame):
 class Page2(tk.Frame): 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text =entry1, font = LARGEFONT)
+        label = ttk.Label(self, text ="", font = LARGEFONT)
         label.grid(row = 0, column = 4, padx = 10, pady = 10)
 
         # button to show frame 2 with text

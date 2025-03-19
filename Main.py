@@ -7,18 +7,22 @@ API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 spellbook = {}
 
 def search_spell(spell_name):
-    """Search for a spell in the D&D API and return its details."""
-    response = requests.get(API_URL + spell_name)
+    fixedspell = spell_name.lower()
+    fixedspell = fixedspell.replace("","-")
+    #"""Search for a spell in the D&D API and return its details."""
+    url = f"https://www.dnd5eapi.co/api/spells/{fixedspell}"
+    response = requests.get(url)
     if response.status_code == 200:
         spell_data = response.json()
-        return {
+        mydict = {
             "name": spell_data["name"],
             "level": spell_data["level"],
             "description": spell_data["desc"][0]  # First part of the description
         }
+        string1 = str(f"""{spell_data["name"]} {spell_data["level"]} {spell_data["desc"][0]}""")
+        return string1
     else:
-        print("Spell not found.")
-        return None
+        return "Spell not found."
 
 def add_spell_to_spellbook(spell_name):
     """Add a spell to the spellbook if found."""
@@ -37,4 +41,3 @@ def view_spellbook():
 
 
 # Example usage
-
