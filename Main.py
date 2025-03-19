@@ -12,7 +12,7 @@ def search_spell(spell_name):
     #"""Search for a spell in the D&D API and return its details."""
     url = f"https://www.dnd5eapi.co/api/spells/{fixedspell}"
     response = requests.get(url)
-    if response.status_code == 200:
+    try:
         spell_data = response.json()
         mydict = {
             "name": spell_data["name"],
@@ -21,7 +21,7 @@ def search_spell(spell_name):
         }
         string1 = str(f"""{spell_data["name"]} {spell_data["level"]} {spell_data["desc"][0]}""")
         return string1
-    else:
+    except:
         return "Spell not found."
 
 def add_spell_to_spellbook(spell_name):
