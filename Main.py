@@ -4,7 +4,8 @@ import requests
 API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 
 # Dictionary to store spells
-spellbook = {}
+spellbook = open("spellbook.txt", "w")
+spellbook.close()
 
 def search_spell(spell_name):
     fixedspell = str(spell_name.lower())
@@ -19,24 +20,34 @@ def search_spell(spell_name):
             "level": spell_data["level"],
             "description": spell_data["desc"][0]  # First part of the description
         }
-    string1 = str(f"""{spell_data["name"]} {spell_data["level"]} {spell_data["desc"]}""")
+    string1 = str(f"""{spell_data["name"]} {spell_data["level"]}\n {spell_data["desc"]}""")
     return string1
     #return "Spell not found."
 
 def add_spell_to_spellbook(spell_name):
     """Add a spell to the spellbook if found."""
-    spell = search_spell(spell_name)
+    url = f"https://www.dnd5eapi.co/api/spells/{spell_name}"
+    response = requests.get(url)
+    spell_data = response.json()
+    spell = spell_name
+    lvl = str(spell_data["level"])
     if spell:
-        spellbook[spell_name] = spell
+        spellbook = open("spellbook.txt", "a")
+        spellbook.write(spell_data["name"] + " Level: " + lvl +'\n')
+        spellbook.close()
         print(f"Added {spell_name} to your spellbook!")
+
 
 def view_spellbook():
     """Display all stored spells."""
-    if not spellbook:
-        print("Your spellbook is empty.")
+    spellbook = open("spellbook.txt","r")
+    num1 = sum(1 for _ in spellbook)
+    spellbook.close
+    if num1 < 1:
+        return("Your spellbook is empty.")
     else:
-        for spell in spellbook.values():
-            print(f"{spell['name']} (Level {spell['level']}): {spell['description']}")
+        spellbook = open("spellbook.txt","r")
+        return(spellbook.read())
 
-search_spell("mage hand")
+
 # Example usage

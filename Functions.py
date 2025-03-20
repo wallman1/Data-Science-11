@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from Main import search_spell
+from Main import search_spell, add_spell_to_spellbook, view_spellbook
 
 LARGEFONT =("Verdana", 35)
 smallfont =("Verdana", 11)
@@ -81,7 +81,7 @@ class Page1(tk.Frame):
         
         tk.Frame.__init__(self, parent)
         label = ttk.Label(self, text ="Search Spell", font = LARGEFONT)
-        label.grid(row = 0, column = 4, padx = 10, pady = 10)
+        label.grid(row = 0, column = 4, padx = 10, pady = 10, sticky = "e")
 
         # button to show frame 2 with text
         # layout2
@@ -99,12 +99,14 @@ class Page1(tk.Frame):
             print(name_entry.get())
             entry1 = name_entry.get()
             txt = search_spell(entry1)
-            txt = str(f"{txt[0:80]}\n{txt[80:160]}")
+            txt = str(f"{txt[0:80]}\n{txt[80:160]}\n{txt[160:240]}...")
             label2 = ttk.Label(self, text =txt, font = smallfont)
             label2.grid(row = 2, column = 2, padx = 10, pady = 10)
+            button4 = ttk.Button(self, text= "Add Spell", command = lambda: add_spell_to_spellbook(entry1))
+            button4.grid(row = 2, column = 3, padx = 10, pady = 10)
         button3 = ttk.Button(self, text="Get text", command=lambda: getandmove())
         button3.grid(row = 1, column = 3, padx =10 , pady =10)
-        button2 = ttk.Button(self, text ="Page 2",
+        button2 = ttk.Button(self, text ="View Spellbook",
                             command = lambda : controller.show_frame(Page2))
     
         # putting the button in its place by 
@@ -115,17 +117,20 @@ class Page1(tk.Frame):
 class Page2(tk.Frame): 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text ="", font = LARGEFONT)
+        label = ttk.Label(self, text ="Spellbook", font = LARGEFONT)
         label.grid(row = 0, column = 4, padx = 10, pady = 10)
 
         # button to show frame 2 with text
         # layout2
-        button1 = ttk.Button(self, text ="Page 1",
+        button1 = ttk.Button(self, text ="Search Spells",
                             command = lambda : controller.show_frame(Page1))
     
         # putting the button in its place by 
         # using grid
         button1.grid(row = 1, column = 1, padx = 10, pady = 10)
+        txt = view_spellbook()
+        label2 = ttk.Label(self, text =txt, font = smallfont)
+        label2.grid(row = 2, column = 2, padx = 10, pady = 10)
 
         # button to show frame 3 with text
         # layout3
