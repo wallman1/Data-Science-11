@@ -99,6 +99,7 @@ class Page1(tk.Frame):
             print(name_entry.get())
             entry1 = name_entry.get()
             txt = search_spell(entry1)
+            txt = str(f"{txt[0:80]}\n{txt[80:160]}")
             label2 = ttk.Label(self, text =txt, font = smallfont)
             label2.grid(row = 2, column = 2, padx = 10, pady = 10)
         button3 = ttk.Button(self, text="Get text", command=lambda: getandmove())
