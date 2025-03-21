@@ -1,170 +1,62 @@
-import tkinter as tk
-from tkinter import ttk
-from Main import search_spell, add_spell_to_spellbook, view_spellbook
+import requests
+import pbd
 
-LARGEFONT =("Verdana", 35)
-smallfont =("Verdana", 11)
-class tkinterApp(tk.Tk):
+# API Base URL
+API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
+
+# Dictionary to store spells
+spellbook = open("spellbook.txt", "w")
+spellbook.close()
+
+def list_spells(sort_type):
+    url = f"https://www.dnd5eapi.co/api/spells"
+    response = requests.get(url)
+    spell_data = response.json()
+    spell_data = spell_data.sort(sort_type)
+    print(spell_data)
+
+def search_spell(spell_name):
+    fixedspell = str(spell_name.lower())
+    fixspell = fixedspell.replace(" ","-")
+    #"""Search for a spell in the D&D API and return its details."""
+    url = f"https://www.dnd5eapi.co/api/spells/{fixspell}"
+    response = requests.get(url)
     
-    # __init__ function for class tkinterApp 
-    def __init__(self, *args, **kwargs): 
-        
-        # __init__ function for class Tk
-        tk.Tk.__init__(self, *args, **kwargs)
-        
-        # creating a container
-        container = tk.Frame(self) 
-        container.pack(side = "top", fill = "both", expand = True) 
+    spell_data = response.json()
+    mydict = {
+            "name": spell_data["name"],
+            "level": spell_data["level"],
+            "description": spell_data["desc"][0]  # First part of the description
+        }
+    string1 = str(f"""{spell_data["name"]} {spell_data["level"]}\n {spell_data["desc"]}""")
+    return string1
+    #return "Spell not found."
 
-        container.grid_rowconfigure(0, weight = 1)
-        container.grid_columnconfigure(0, weight = 1)
-
-        # initializing frames to an empty array
-        self.frames = {} 
-
-        # iterating through a tuple consisting
-        # of the different page layouts
-        for F in (StartPage, Page1, Page2):
-
-            frame = F(container, self)
-
-            # initializing frame of that object from
-            # startpage, page1, page2 respectively with 
-            # for loop
-            self.frames[F] = frame 
-
-            frame.grid(row = 0, column = 0, sticky ="nsew")
-
-        self.show_frame(StartPage)
-
-    # to display the current frame passed as
-    # parameter
-    def show_frame(self, cont):
-        frame = self.frames[cont]
-        frame.tkraise()
-
-# first window frame startpage
-
-class StartPage(tk.Frame):
-    def __init__(self, parent, controller): 
-        tk.Frame.__init__(self, parent)
-        
-        # label of frame Layout 2
-        label = ttk.Label(self, text ="Startpage", font = LARGEFONT)
-        
-        # putting the grid in its place by using
-        # grid
-        label.grid(row = 0, column = 4, padx = 10, pady = 10) 
-
-        button1 = ttk.Button(self, text ="Page 1",
-        command = lambda : controller.show_frame(Page1))
-    
-        # putting the button in its place by
-        # using grid
-        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-
-        ## button to show frame 2 with text layout2
-        button2 = ttk.Button(self, text ="Page 2",
-        command = lambda : controller.show_frame(Page2))
-    
-        # putting the button in its place by
-        # using grid
-        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-
-        
+def add_spell_to_spellbook(spell_name):
+    """Add a spell to the spellbook if found."""
+    url = f"https://www.dnd5eapi.co/api/spells/{spell_name}"
+    response = requests.get(url)
+    spell_data = response.json()
+    spell = spell_name
+    lvl = str(spell_data["level"])
+    if spell:
+        spellbook = open("spellbook.txt", "a")
+        spellbook.write(spell_data["name"] + " Level: " + lvl +'\n')
+        spellbook.close()
+        print(f"Added {spell_name} to your spellbook!")
 
 
-# second window frame page1 
-class Page1(tk.Frame):
-    
-    def __init__(self, parent, controller):
-        
-        tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text ="Search Spell", font = LARGEFONT)
-        label.grid(row = 0, column = 4, padx = 10, pady = 10, sticky = "e")
+def view_spellbook():
+    """Display all stored spells."""
+    spellbook = open("spellbook.txt","r")
+    num1 = sum(1 for _ in spellbook)
+    spellbook.close
+    if num1 < 1:
+        return("Your spellbook is empty.")
+    else:
+        spellbook = open("spellbook.txt","r")
+        return(spellbook.read())
 
-        # button to show frame 2 with text
-        # layout2
-        button1 = ttk.Button(self, text ="StartPage",
-                            command = lambda : controller.show_frame(StartPage))
 
-        # putting the button in its place 
-        # by using grid
-        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-        name_entry = tk.Entry(self, font=('calibre',10,'normal'))
-        name_entry.grid(row = 1, column = 2, padx = 10, pady = 10)
-        # button to show frame 2 with text
-        # layout2
-        def getandmove():
-            print(name_entry.get())
-            entry1 = name_entry.get()
-            txt = search_spell(entry1)
-            txt = str(f"{txt[0:80]}\n{txt[80:160]}\n{txt[160:240]}...")
-            label2 = ttk.Label(self, text =txt, font = smallfont)
-            label2.grid(row = 2, column = 2, padx = 10, pady = 10)
-            button4 = ttk.Button(self, text= "Add Spell", command = lambda: add_spell_to_spellbook(entry1))
-            button4.grid(row = 2, column = 3, padx = 10, pady = 10)
-        button3 = ttk.Button(self, text="Get text", command=lambda: getandmove())
-        button3.grid(row = 1, column = 3, padx =10 , pady =10)
-        button2 = ttk.Button(self, text ="View Spellbook",
-                            command = lambda : controller.show_frame(Page2))
-    
-        # putting the button in its place by 
-        # using grid
-        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-
-# third window frame page2
-class Page2(tk.Frame): 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text ="Spellbook", font = LARGEFONT)
-        label.grid(row = 0, column = 4, padx = 10, pady = 10)
-
-        # button to show frame 2 with text
-        # layout2
-        button1 = ttk.Button(self, text ="Search Spells",
-                            command = lambda : controller.show_frame(Page1))
-    
-        # putting the button in its place by 
-        # using grid
-        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-        txt = view_spellbook()
-        label2 = ttk.Label(self, text =txt, font = smallfont)
-        label2.grid(row = 2, column = 2, padx = 10, pady = 10)
-
-        # button to show frame 3 with text
-        # layout3
-        button2 = ttk.Button(self, text ="Startpage",
-                            command = lambda : controller.show_frame(StartPage))
-    
-        # putting the button in its place by
-        # using grid
-        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-
-class Page3(tk.Frame): 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text ="Page 2", font = LARGEFONT)
-        label.grid(row = 0, column = 4, padx = 10, pady = 10)
-
-        # button to show frame 2 with text
-        # layout2
-        button1 = ttk.Button(self, text ="Page 1",
-                            command = lambda : controller.show_frame(Page1))
-    
-        # putting the button in its place by 
-        # using grid
-        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-
-        # button to show frame 3 with text
-        # layout3
-        button2 = ttk.Button(self, text ="Startpage",
-                            command = lambda : controller.show_frame(StartPage))
-    
-        # putting the button in its place by
-        # using grid
-        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-
-# Driver Code
-app = tkinterApp()
-app.mainloop()
+# Example usage
+list_spells()
