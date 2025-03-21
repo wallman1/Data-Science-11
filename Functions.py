@@ -1,5 +1,4 @@
 import requests
-import pbd
 
 # API Base URL
 API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
@@ -59,4 +58,3 @@ def view_spellbook():
 
 
 # Example usage
-list_spells()
