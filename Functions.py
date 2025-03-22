@@ -1,5 +1,4 @@
 import requests
-
 # API Base URL
 API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 
@@ -33,14 +32,16 @@ def search_spell(spell_name):
 
 def add_spell_to_spellbook(spell_name):
     """Add a spell to the spellbook if found."""
-    url = f"https://www.dnd5eapi.co/api/spells/{spell_name}"
+    fixedspell = str(spell_name.lower())
+    fixspell = fixedspell.replace(" ","-")
+    url = f"https://www.dnd5eapi.co/api/spells/{fixspell}"
     response = requests.get(url)
     spell_data = response.json()
     spell = spell_name
     lvl = str(spell_data["level"])
     if spell:
         spellbook = open("spellbook.txt", "a")
-        spellbook.write(spell_data["name"] + " Level: " + lvl +'\n')
+        spellbook.write(spell + " Level: " + lvl +'\n')
         spellbook.close()
         print(f"Added {spell_name} to your spellbook!")
 
@@ -54,7 +55,7 @@ def view_spellbook():
         return("Your spellbook is empty.")
     else:
         spellbook = open("spellbook.txt","r")
-        return(spellbook.read())
-
+        txt = str(spellbook.read())
+        return txt
 
 # Example usage

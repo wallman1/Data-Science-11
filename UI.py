@@ -100,7 +100,11 @@ class Page1(tk.Frame):
             entry1 = name_entry.get()
             txt = search_spell(entry1)
             txt = str(f"{txt[0:80]}\n{txt[80:160]}\n{txt[160:240]}...")
+            for widget in self.winfo_children():
+                if isinstance(widget, ttk.Label) and widget['text'] == txt:
+                    widget.destroy()
             label2 = ttk.Label(self, text =txt, font = smallfont)
+            label2.pack()
             label2.grid(row = 2, column = 2, padx = 10, pady = 10)
             button4 = ttk.Button(self, text= "Add Spell", command = lambda: add_spell_to_spellbook(entry1))
             button4.grid(row = 2, column = 3, padx = 10, pady = 10)
