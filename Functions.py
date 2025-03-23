@@ -3,7 +3,7 @@ import requests
 API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 
 # Dictionary to store spells
-spellbook = open("spellbook.txt", "w")
+spellbook = open("spellbook.txt", "a")
 spellbook.close()
 
 def list_spells(sort_type):
@@ -18,16 +18,14 @@ def search_spell(spell_name):
     fixspell = fixedspell.replace(" ","-")
     #"""Search for a spell in the D&D API and return its details."""
     url = f"https://www.dnd5eapi.co/api/spells/{fixspell}"
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
     
-    spell_data = response.json()
-    mydict = {
-            "name": spell_data["name"],
-            "level": spell_data["level"],
-            "description": spell_data["desc"][0]  # First part of the description
-        }
-    string1 = str(f"""{spell_data["name"]} {spell_data["level"]}\n {spell_data["desc"]}""")
-    return string1
+        spell_data = response.json()
+        string1 = str(f"""{spell_data["name"]} {spell_data["level"]}\n {spell_data["desc"]}""")
+        return string1
+    except:
+        return "Spell not found"
     #return "Spell not found."
 
 def add_spell_to_spellbook(spell_name):
@@ -48,14 +46,13 @@ def add_spell_to_spellbook(spell_name):
 
 def view_spellbook():
     """Display all stored spells."""
-    spellbook = open("spellbook.txt","r")
-    num1 = sum(1 for _ in spellbook)
-    spellbook.close
-    if num1 < 1:
-        return("Your spellbook is empty.")
-    else:
-        spellbook = open("spellbook.txt","r")
-        txt = str(spellbook.read())
-        return txt
+    with open("spellbook.txt", 'r') as spellbook:
+        # Read the content of the file
+        file_content = spellbook.read()
+        if len(file_content) < 1:
+            return "spellbook empty"
+        else:
+            return str(file_content)
+        
 
 # Example usage

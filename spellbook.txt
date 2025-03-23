@@ -1,0 +1,5 @@
+fireball Level: 3
+fireball Level: 3
+mage hand Level: 0
+fireball Level: 3
+fireball Level: 3

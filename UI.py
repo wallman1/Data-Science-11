@@ -1,3 +1,4 @@
+from logging import debug
 import tkinter as tk
 from tkinter import ttk
 from Functions import search_spell, add_spell_to_spellbook, view_spellbook
@@ -95,19 +96,23 @@ class Page1(tk.Frame):
         name_entry.grid(row = 1, column = 2, padx = 10, pady = 10)
         # button to show frame 2 with text
         # layout2
+        self.spell_label=None
+        self.add_spell_button=None
         def getandmove():
+            name_entry.get()
             print(name_entry.get())
             entry1 = name_entry.get()
             txt = search_spell(entry1)
             txt = str(f"{txt[0:80]}\n{txt[80:160]}\n{txt[160:240]}...")
-            for widget in self.winfo_children():
-                if isinstance(widget, ttk.Label) and widget['text'] == txt:
-                    widget.destroy()
-            label2 = ttk.Label(self, text =txt, font = smallfont)
-            label2.pack()
-            label2.grid(row = 2, column = 2, padx = 10, pady = 10)
-            button4 = ttk.Button(self, text= "Add Spell", command = lambda: add_spell_to_spellbook(entry1))
-            button4.grid(row = 2, column = 3, padx = 10, pady = 10)
+            if not self.spell_label:
+                self.spell_label = ttk.Label(self, text ="Not set yet", font = smallfont)
+                self.spell_label.grid(row = 2, column = 2, padx = 10, pady = 10)
+            self.spell_label['text']=txt
+            if not self.add_spell_button:
+                self.add_spell_button = ttk.Button(self, text= "Add Spell", command = lambda: add_spell_to_spellbook(entry1))
+                self.add_spell_button.grid(row = 2, column = 3, padx = 10, pady = 10)
+            self.add_spell_button["command"]=add_spell_to_spellbook(entry1)
+            
         button3 = ttk.Button(self, text="Get text", command=lambda: getandmove())
         button3.grid(row = 1, column = 3, padx =10 , pady =10)
         button2 = ttk.Button(self, text ="View Spellbook",
@@ -132,7 +137,7 @@ class Page2(tk.Frame):
         # putting the button in its place by 
         # using grid
         button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-        txt = view_spellbook()
+        txt = str(view_spellbook())
         label2 = ttk.Label(self, text =txt, font = smallfont)
         label2.grid(row = 2, column = 2, padx = 10, pady = 10)
 
