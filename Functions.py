@@ -6,12 +6,25 @@ API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 spellbook = open("spellbook.txt", "a")
 spellbook.close()
 
-def list_spells(sort_type):
+def list_spells():
     url = f"https://www.dnd5eapi.co/api/spells"
     response = requests.get(url)
     spell_data = response.json()
-    spell_data = spell_data.sort(sort_type)
-    print(spell_data)
+    print(type(spell_data))
+    count = 0
+    mylist = []
+    try:
+        for i in spell_data["results"]:
+            count = count + 1
+            mylist.append(f"{spell_data["results"][count]["name"]}")
+    except:
+        pass
+
+    mylist = str(mylist[0:20])
+    mylist = mylist.replace(",","\n")
+    print(mylist)
+    return mylist
+    #print(spell_data)
 
 def search_spell(spell_name):
     fixedspell = str(spell_name.lower())
@@ -53,6 +66,5 @@ def view_spellbook():
             return "spellbook empty"
         else:
             return str(file_content)
-        
 
 # Example usage

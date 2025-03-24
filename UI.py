@@ -1,15 +1,14 @@
 from logging import debug
 import tkinter as tk
 from tkinter import ttk
-from Functions import search_spell, add_spell_to_spellbook, view_spellbook
-
+from Functions import search_spell, add_spell_to_spellbook, view_spellbook, list_spells
+update = False
 LARGEFONT =("Verdana", 35)
 smallfont =("Verdana", 11)
 class tkinterApp(tk.Tk):
     
     # __init__ function for class tkinterApp 
     def __init__(self, *args, **kwargs): 
-        
         # __init__ function for class Tk
         tk.Tk.__init__(self, *args, **kwargs)
         
@@ -51,7 +50,7 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         
         # label of frame Layout 2
-        label = ttk.Label(self, text ="Startpage", font = LARGEFONT)
+        label = ttk.Label(self, text ="Start page", font = LARGEFONT)
         
         # putting the grid in its place by using
         # grid
@@ -71,8 +70,14 @@ class StartPage(tk.Frame):
         # putting the button in its place by
         # using grid
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
+        self.text = None
+        def listing():
+            self.text = ttk.Label(self, text = list_spells("pass"), font = smallfont)
+            self.text.grid(row = 2, column = 2, padx = 10, pady = 10)
 
-        
+        button3 = ttk.Button(self, text = "List (Some) Spells", command = listing)
+        button3.grid(row = 3, column = 1, padx = 10, pady = 10)
+     
 
 
 # second window frame page1 
@@ -97,7 +102,6 @@ class Page1(tk.Frame):
         # button to show frame 2 with text
         # layout2
         self.spell_label=None
-        self.add_spell_button=None
         def getandmove():
             name_entry.get()
             print(name_entry.get())
@@ -108,10 +112,11 @@ class Page1(tk.Frame):
                 self.spell_label = ttk.Label(self, text ="Not set yet", font = smallfont)
                 self.spell_label.grid(row = 2, column = 2, padx = 10, pady = 10)
             self.spell_label['text']=txt
-            if not self.add_spell_button:
-                self.add_spell_button = ttk.Button(self, text= "Add Spell", command = lambda: add_spell_to_spellbook(entry1))
-                self.add_spell_button.grid(row = 2, column = 3, padx = 10, pady = 10)
-            self.add_spell_button["command"]=add_spell_to_spellbook(entry1)
+            if txt == "Spell not found":
+                pass
+            else:
+                add_spell_button = ttk.Button(self, text= "Add Spell", command = lambda: add_spell_to_spellbook(entry1))
+                add_spell_button.grid(row = 2, column = 3, padx = 10, pady = 10)
             
         button3 = ttk.Button(self, text="Get text", command=lambda: getandmove())
         button3.grid(row = 1, column = 3, padx =10 , pady =10)
@@ -125,6 +130,7 @@ class Page1(tk.Frame):
 # third window frame page2
 class Page2(tk.Frame): 
     def __init__(self, parent, controller):
+        Tk.update_idletasks()
         tk.Frame.__init__(self, parent)
         label = ttk.Label(self, text ="Spellbook", font = LARGEFONT)
         label.grid(row = 0, column = 4, padx = 10, pady = 10)
@@ -136,15 +142,20 @@ class Page2(tk.Frame):
     
         # putting the button in its place by 
         # using grid
+        self.label2 = None
         button1.grid(row = 1, column = 1, padx = 10, pady = 10)
         txt = str(view_spellbook())
         label2 = ttk.Label(self, text =txt, font = smallfont)
         label2.grid(row = 2, column = 2, padx = 10, pady = 10)
 
+        def updatespellbook():
+            label2
         # button to show frame 3 with text
         # layout3
         button2 = ttk.Button(self, text ="Startpage",
                             command = lambda : controller.show_frame(StartPage))
+        button3 = ttk.Button(self, text = "List Spells", command = lambda: controller.show_frame(Page3))
+        button3.grid(row = 3, column = 1, padx = 10, pady = 10)
     
         # putting the button in its place by
         # using grid
