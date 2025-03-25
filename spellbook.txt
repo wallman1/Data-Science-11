@@ -1,3 +1,4 @@
 
 fireball Level: 3
 magic missile Level: 1
+fireball Level: 3
