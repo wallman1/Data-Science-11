@@ -51,7 +51,13 @@ class StartPage(tk.Frame):
         
         # label of frame Layout 2
         label = ttk.Label(self, text ="Start page", font = LARGEFONT)
-        
+
+        myframe = ttk.Label(self, text = "", font=smallfont)
+        myscroll = ttk.Scrollbar(myframe, orient='vertical')
+
+        myframe.grid(row = 2, column = 3, padx = 10, pady = 10)
+        myscroll.grid(row=2, sticky='ew')
+        myscroll.config( command = list_spells())
         # putting the grid in its place by using
         # grid
         label.grid(row = 0, column = 4, padx = 10, pady = 10) 
@@ -72,7 +78,7 @@ class StartPage(tk.Frame):
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
         self.text = None
         def listing():
-            self.text = ttk.Label(self, text = list_spells("pass"), font = smallfont)
+            self.text = ttk.Label(self, text = list_spells(), font = smallfont)
             self.text.grid(row = 2, column = 2, padx = 10, pady = 10)
 
         button3 = ttk.Button(self, text = "List (Some) Spells", command = listing)
@@ -130,7 +136,6 @@ class Page1(tk.Frame):
 # third window frame page2
 class Page2(tk.Frame): 
     def __init__(self, parent, controller):
-        Tk.update_idletasks()
         tk.Frame.__init__(self, parent)
         label = ttk.Label(self, text ="Spellbook", font = LARGEFONT)
         label.grid(row = 0, column = 4, padx = 10, pady = 10)
