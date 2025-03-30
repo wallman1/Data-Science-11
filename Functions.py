@@ -6,7 +6,7 @@ API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 spellbook = open("spellbook.txt", "a")
 spellbook.close()
 
-def list_spells():
+def list_spells(count):
     url = f"https://www.dnd5eapi.co/api/spells"
     response = requests.get(url)
     spell_data = response.json()
@@ -16,14 +16,12 @@ def list_spells():
     try:
         for i in spell_data["results"]:
             count = count + 1
-            mylist.append(f"{spell_data["results"][count]["name"]}")
+            mylist.append(spell_data["results"][count]["name"])
     except:
         pass
-
-    mylist = str(mylist[0:20])
-    mylist = mylist.replace(",","\n")
-    print(mylist)
-    return mylist
+    #mylist = mylist.replace(",","\n")
+    print(mylist[count])
+    return mylist[count]
     #print(spell_data)
 
 def search_spell(spell_name):

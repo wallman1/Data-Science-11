@@ -49,37 +49,31 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller): 
         tk.Frame.__init__(self, parent)
         
-        # label of frame Layout 2
         label = ttk.Label(self, text ="Start page", font = LARGEFONT)
-
-        myframe = ttk.Label(self, text = "", font=smallfont)
-        myscroll = ttk.Scrollbar(myframe, orient='vertical')
-
-        myframe.grid(row = 2, column = 3, padx = 10, pady = 10)
-        myscroll.grid(row=2, sticky='ew')
-        myscroll.config( command = list_spells())
-        # putting the grid in its place by using
-        # grid
-        label.grid(row = 0, column = 4, padx = 10, pady = 10) 
+        label.grid(row = 0, column = 0, padx = 10, pady = 10) 
 
         button1 = ttk.Button(self, text ="Page 1",
         command = lambda : controller.show_frame(Page1))
     
-        # putting the button in its place by
-        # using grid
         button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-
-        ## button to show frame 2 with text layout2
         button2 = ttk.Button(self, text ="Page 2",
         command = lambda : controller.show_frame(Page2))
     
-        # putting the button in its place by
-        # using grid
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
         self.text = None
         def listing():
-            self.text = ttk.Label(self, text = list_spells(), font = smallfont)
-            self.text.grid(row = 2, column = 2, padx = 10, pady = 10)
+            myframe = tk.Frame(self)  # Create a new frame
+            myframe.grid(row = 2, column = 3, padx = 10, pady = 10) 
+            myscroll = tk.Scrollbar(myframe, orient='vertical')
+            myscroll.pack(side='right', fill='y')  # Pack the scrollbar
+            listbox = tk.Listbox(myframe)
+            count = 0
+            for i in range(len(list_spells())):
+                count = count + 1
+                listbox.insert(count,str(list_spells(count)))
+            listbox.pack(side='left', fill='both', expand=True)  # Pack the listbox
+            myscroll.config(command=listbox.yview)
+            listbox.config(yscrollcommand=myscroll.set)
 
         button3 = ttk.Button(self, text = "List (Some) Spells", command = listing)
         button3.grid(row = 3, column = 1, padx = 10, pady = 10)
@@ -119,7 +113,7 @@ class Page1(tk.Frame):
                 self.spell_label.grid(row = 2, column = 2, padx = 10, pady = 10)
             self.spell_label['text']=txt
             if txt == "Spell not found":
-                pass
+                self.spell_label['text']="Spell Not Found"
             else:
                 add_spell_button = ttk.Button(self, text= "Add Spell", command = lambda: add_spell_to_spellbook(entry1))
                 add_spell_button.grid(row = 2, column = 3, padx = 10, pady = 10)
