@@ -1,4 +1,5 @@
 from logging import debug
+import json
 import tkinter as tk
 from tkinter import ttk
 from Functions import search_spell, add_spell_to_spellbook, view_spellbook, list_spells
@@ -58,7 +59,6 @@ class StartPage(tk.Frame):
         button1.grid(row = 1, column = 1, padx = 10, pady = 10)
         button2 = ttk.Button(self, text ="Page 2",
         command = lambda : controller.show_frame(Page2))
-    
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
         self.text = None
         def listing():
@@ -68,17 +68,16 @@ class StartPage(tk.Frame):
             myscroll.pack(side='right', fill='y')  # Pack the scrollbar
             listbox = tk.Listbox(myframe)
             count = 0
-            for i in range(len(list_spells())):
-                count = count + 1
-                listbox.insert(count,str(list_spells(count)))
+            x = list_spells()
+            for i in range(318):
+                listbox.insert(count,x[count])
+                count+=1
             listbox.pack(side='left', fill='both', expand=True)  # Pack the listbox
             myscroll.config(command=listbox.yview)
             listbox.config(yscrollcommand=myscroll.set)
 
         button3 = ttk.Button(self, text = "List (Some) Spells", command = listing)
         button3.grid(row = 3, column = 1, padx = 10, pady = 10)
-     
-
 
 # second window frame page1 
 class Page1(tk.Frame):
@@ -139,26 +138,26 @@ class Page2(tk.Frame):
         button1 = ttk.Button(self, text ="Search Spells",
                             command = lambda : controller.show_frame(Page1))
     
+        x = True
         # putting the button in its place by 
         # using grid
         self.label2 = None
         button1.grid(row = 1, column = 1, padx = 10, pady = 10)
         txt = str(view_spellbook())
-        label2 = ttk.Label(self, text =txt, font = smallfont)
-        label2.grid(row = 2, column = 2, padx = 10, pady = 10)
-
-        def updatespellbook():
-            label2
+        self.label2 = ttk.Label(self, text =txt, font = smallfont)
+        self.label2.grid(row = 2, column = 2, padx = 10, pady = 10)
         # button to show frame 3 with text
         # layout3
+        def updatespellbook():
+            self.label2["text"]=txt
         button2 = ttk.Button(self, text ="Startpage",
                             command = lambda : controller.show_frame(StartPage))
-        button3 = ttk.Button(self, text = "List Spells", command = lambda: controller.show_frame(Page3))
-        button3.grid(row = 3, column = 1, padx = 10, pady = 10)
     
         # putting the button in its place by
         # using grid
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
+        button3 = ttk.Button(self, text = "Update", command = updatespellbook())
+        button3.grid(row = 1, column = 4, padx = 10, pady = 10)
 
 class Page3(tk.Frame): 
     def __init__(self, parent, controller):

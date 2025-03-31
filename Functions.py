@@ -1,4 +1,5 @@
 import requests
+import json
 # API Base URL
 API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 
@@ -6,7 +7,7 @@ API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 spellbook = open("spellbook.txt", "a")
 spellbook.close()
 
-def list_spells(count):
+def list_spells():
     url = f"https://www.dnd5eapi.co/api/spells"
     response = requests.get(url)
     spell_data = response.json()
@@ -20,8 +21,9 @@ def list_spells(count):
     except:
         pass
     #mylist = mylist.replace(",","\n")
-    print(mylist[count])
-    return mylist[count]
+    print(len(mylist))
+    print(mylist[1])
+    return mylist
     #print(spell_data)
 
 def search_spell(spell_name):
@@ -48,21 +50,26 @@ def add_spell_to_spellbook(spell_name):
     spell_data = response.json()
     spell = spell_name
     lvl = str(spell_data["level"])
+    x = str(spell + " Level: " + lvl)
+    y = json.dumps(x)
+    y = f"{y} \n"
     if spell:
-        spellbook = open("spellbook.txt", "a")
-        spellbook.write(spell + " Level: " + lvl +'\n')
+        spellbook = open("spellbook.json", "a")
+        spellbook.write(y)
         spellbook.close()
         print(f"Added {spell_name} to your spellbook!")
 
 
 def view_spellbook():
     """Display all stored spells."""
-    with open("spellbook.txt", 'r') as spellbook:
+    with open("spellbook.json", 'r') as spellbook:
         # Read the content of the file
         file_content = spellbook.read()
         if len(file_content) < 1:
             return "spellbook empty"
         else:
             return str(file_content)
+        
+
 
 # Example usage
