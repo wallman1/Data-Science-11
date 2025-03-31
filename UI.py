@@ -137,11 +137,8 @@ class Page2(tk.Frame):
         # layout2
         button1 = ttk.Button(self, text ="Search Spells",
                             command = lambda : controller.show_frame(Page1))
-    
-        x = True
         # putting the button in its place by 
         # using grid
-        self.label2 = None
         button1.grid(row = 1, column = 1, padx = 10, pady = 10)
         txt = str(view_spellbook())
         self.label2 = ttk.Label(self, text =txt, font = smallfont)
@@ -149,14 +146,15 @@ class Page2(tk.Frame):
         # button to show frame 3 with text
         # layout3
         def updatespellbook():
-            self.label2["text"]=txt
+            self.label2.grid_forget()
+            self.label2 = ttk.Label(self, text =str(view_spellbook()), font = smallfont)
+            self.label2.grid(row = 2, column = 2, padx = 10, pady = 10)
         button2 = ttk.Button(self, text ="Startpage",
                             command = lambda : controller.show_frame(StartPage))
-    
         # putting the button in its place by
         # using grid
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-        button3 = ttk.Button(self, text = "Update", command = updatespellbook())
+        button3 = ttk.Button(self, text = "Update", command = updatespellbook)
         button3.grid(row = 1, column = 4, padx = 10, pady = 10)
 
 class Page3(tk.Frame): 
