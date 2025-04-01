@@ -3,59 +3,60 @@ import json
 # API Base URL
 API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
 tempbook = []
-# Dictionary to store spells
-spellbook = open("spellbook.txt", "a")
+# File to store spells
+spellbook = open("spellbook.json", "a")
 spellbook.close()
 
 def list_spells():
+    #Gets the spell data
     url = f"https://www.dnd5eapi.co/api/spells"
     response = requests.get(url)
     spell_data = response.json()
     print(type(spell_data))
     count = 0
     mylist = []
+    #Adds all spell names into a list
     try:
         for i in spell_data["results"]:
             count = count + 1
             mylist.append(spell_data["results"][count]["name"])
     except:
         pass
-    #mylist = mylist.replace(",","\n")
-    print(len(mylist))
-    print(mylist[1])
     return mylist
-    #print(spell_data)
+
 
 def search_spell(spell_name):
+    #Changes the input to be availiable for search
     fixedspell = str(spell_name.lower())
     fixspell = fixedspell.replace(" ","-")
-    #"""Search for a spell in the D&D API and return its details."""
+    #Searches through the api for the spell
     url = f"https://www.dnd5eapi.co/api/spells/{fixspell}"
     try:
+        #Modifies the output to be easier to read
         response = requests.get(url)
-    
         spell_data = response.json()
         string1 = str(f"""{spell_data["name"]} {spell_data["level"]}\n {spell_data["desc"]}""")
         return string1
     except:
         return "Spell not found"
-    #return "Spell not found."
 
 def add_spell_to_spellbook(spell_name):
-    """Add a spell to the spellbook if found."""
+    #Changes the input to be availiable for search
     fixedspell = str(spell_name.lower())
     fixspell = fixedspell.replace(" ","-")
+    #Searches through the api for the spell
     url = f"https://www.dnd5eapi.co/api/spells/{fixspell}"
     response = requests.get(url)
     spell_data = response.json()
-    spell = spell_name
+    #Converts the data into data to be stored
     lvl = str(spell_data["level"])
-    x = str(spell + " Level: " + lvl)
+    x = str(spell_name + " Level: " + lvl)
     z = str(x + "\n")
     tempbook.append(z)
     y = json.dumps(x)
     y = f"{y} \n"
-    if spell:
+    if spell_name:
+        #Stores the data in a json file
         spellbook = open("spellbook.json", "a")
         spellbook.write(y)
         spellbook.close()
@@ -71,4 +72,3 @@ def view_spellbook():
             return "spellbook empty"
         else:
             return file_content
-# Example usage

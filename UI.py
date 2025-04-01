@@ -60,7 +60,7 @@ class StartPage(tk.Frame):
         button2 = ttk.Button(self, text ="Page 2",
         command = lambda : controller.show_frame(Page2))
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
-        self.text = None
+        #Lists the spells
         def listing():
             myframe = tk.Frame(self)  # Create a new frame
             myframe.grid(row = 2, column = 3, padx = 10, pady = 10) 
@@ -68,6 +68,7 @@ class StartPage(tk.Frame):
             myscroll.pack(side='right', fill='y')  # Pack the scrollbar
             listbox = tk.Listbox(myframe)
             count = 0
+            #Adds all the spells into a frame and displays them
             x = list_spells()
             for i in range(318):
                 listbox.insert(count,x[count])
@@ -102,11 +103,13 @@ class Page1(tk.Frame):
         # layout2
         self.spell_label=None
         def getandmove():
+            #Gets the name, level and data of the inputted spell
             name_entry.get()
             print(name_entry.get())
             entry1 = name_entry.get()
             txt = search_spell(entry1)
             txt = str(f"{txt[0:80]}\n{txt[80:160]}\n{txt[160:240]}...")
+            #Checks whether the widgets already exist and updates them
             if not self.spell_label:
                 self.spell_label = ttk.Label(self, text ="Not set yet", font = smallfont)
                 self.spell_label.grid(row = 2, column = 2, padx = 10, pady = 10)
@@ -145,6 +148,7 @@ class Page2(tk.Frame):
         self.label2.grid(row = 2, column = 2, padx = 10, pady = 10)
         # button to show frame 3 with text
         # layout3
+        #Updates the Spellbook Label
         def updatespellbook():
             self.label2.grid_forget()
             self.label2 = ttk.Label(self, text =str(view_spellbook()), font = smallfont)
@@ -183,4 +187,3 @@ class Page3(tk.Frame):
 
 # Driver Code
 app = tkinterApp()
-app.mainloop()
