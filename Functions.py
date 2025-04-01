@@ -2,7 +2,7 @@ import requests
 import json
 # API Base URL
 API_URL = requests.get("https://www.dnd5eapi.co/api/spells/")
-
+tempbook = []
 # Dictionary to store spells
 spellbook = open("spellbook.txt", "a")
 spellbook.close()
@@ -51,6 +51,8 @@ def add_spell_to_spellbook(spell_name):
     spell = spell_name
     lvl = str(spell_data["level"])
     x = str(spell + " Level: " + lvl)
+    z = str(x + "\n")
+    tempbook.append(z)
     y = json.dumps(x)
     y = f"{y} \n"
     if spell:
@@ -68,8 +70,5 @@ def view_spellbook():
         if len(file_content) < 1:
             return "spellbook empty"
         else:
-            return str(file_content)
-        
-
-
+            return file_content
 # Example usage
