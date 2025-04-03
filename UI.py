@@ -7,9 +7,19 @@ update = False
 LARGEFONT =("Verdana", 35)
 smallfont =("Verdana", 11)
 class tkinterApp(tk.Tk):
+    """
+    Main application class for the tkinter GUI, inheriting from tk.Tk.
+    
+    Initializes the main window and sets up the navigation between multiple frames.
+    """
     
     # __init__ function for class tkinterApp 
     def __init__(self, *args, **kwargs): 
+        """
+        Initialize the tkinterApp class.
+        
+        Sets up the frames (StartPage, Page1, Page2) and prepares the GUI window for interaction.
+        """
         # __init__ function for class Tk
         tk.Tk.__init__(self, *args, **kwargs)
         
@@ -41,27 +51,46 @@ class tkinterApp(tk.Tk):
     # to display the current frame passed as
     # parameter
     def show_frame(self, cont):
+        """
+        Display the specified frame.
+        
+        Args:
+            cont (tk.Frame): The frame to display.
+        """
         frame = self.frames[cont]
         frame.tkraise()
 
 # first window frame startpage
 
 class StartPage(tk.Frame):
+    """
+    The start page of the application where the user can navigate to other pages.
+    """
     def __init__(self, parent, controller): 
+        """
+        Initialize the StartPage frame.
+        
+        Args:
+            parent (tk.Frame): The parent container for the frame.
+            controller (tk.Tk): The main tkinter application controller.
+        """
         tk.Frame.__init__(self, parent)
         
-        label = ttk.Label(self, text ="Start page", font = LARGEFONT)
+        label = ttk.Label(self, text ="Home", font = LARGEFONT)
         label.grid(row = 0, column = 0, padx = 10, pady = 10) 
 
-        button1 = ttk.Button(self, text ="Page 1",
+        button1 = ttk.Button(self, text ="Search Spells",
         command = lambda : controller.show_frame(Page1))
     
         button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-        button2 = ttk.Button(self, text ="Page 2",
+        button2 = ttk.Button(self, text ="View Spellbook",
         command = lambda : controller.show_frame(Page2))
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
         #Lists the spells
         def listing():
+            """
+            Lists all available spells in a scrollable listbox.
+            """
             myframe = tk.Frame(self)  # Create a new frame
             myframe.grid(row = 2, column = 3, padx = 10, pady = 10) 
             myscroll = tk.Scrollbar(myframe, orient='vertical')
@@ -82,16 +111,24 @@ class StartPage(tk.Frame):
 
 # second window frame page1 
 class Page1(tk.Frame):
-    
+    """
+    The page where the user can search for spells by name.
+    """
     def __init__(self, parent, controller):
+        """
+        Initialize the Page1 frame for searching spells.
         
+        Args:
+            parent (tk.Frame): The parent container for the frame.
+            controller (tk.Tk): The main tkinter application controller.
+        """
         tk.Frame.__init__(self, parent)
         label = ttk.Label(self, text ="Search Spell", font = LARGEFONT)
         label.grid(row = 0, column = 4, padx = 10, pady = 10, sticky = "e")
 
         # button to show frame 2 with text
         # layout2
-        button1 = ttk.Button(self, text ="StartPage",
+        button1 = ttk.Button(self, text ="Home",
                             command = lambda : controller.show_frame(StartPage))
 
         # putting the button in its place 
@@ -103,6 +140,10 @@ class Page1(tk.Frame):
         # layout2
         self.spell_label=None
         def getandmove():
+            """
+            Searches for a spell using the provided name and displays its information.
+            Also provides an option to add the spell to the spellbook if found.
+            """
             #Gets the name, level and data of the inputted spell
             name_entry.get()
             print(name_entry.get())
@@ -131,7 +172,17 @@ class Page1(tk.Frame):
 
 # third window frame page2
 class Page2(tk.Frame): 
+    """
+    The page where the user can view their spellbook and update it.
+    """
     def __init__(self, parent, controller):
+        """
+        Initialize the Page2 frame for viewing and updating the spellbook.
+        
+        Args:
+            parent (tk.Frame): The parent container for the frame.
+            controller (tk.Tk): The main tkinter application controller.
+        """
         tk.Frame.__init__(self, parent)
         label = ttk.Label(self, text ="Spellbook", font = LARGEFONT)
         label.grid(row = 0, column = 4, padx = 10, pady = 10)
@@ -150,40 +201,19 @@ class Page2(tk.Frame):
         # layout3
         #Updates the Spellbook Label
         def updatespellbook():
+            """
+            Updates the content of the spellbook display.
+            """
             self.label2.grid_forget()
             self.label2 = ttk.Label(self, text =str(view_spellbook()), font = smallfont)
             self.label2.grid(row = 2, column = 2, padx = 10, pady = 10)
-        button2 = ttk.Button(self, text ="Startpage",
+        button2 = ttk.Button(self, text ="Home",
                             command = lambda : controller.show_frame(StartPage))
         # putting the button in its place by
         # using grid
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
         button3 = ttk.Button(self, text = "Update", command = updatespellbook)
         button3.grid(row = 1, column = 4, padx = 10, pady = 10)
-
-class Page3(tk.Frame): 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text ="Page 2", font = LARGEFONT)
-        label.grid(row = 0, column = 4, padx = 10, pady = 10)
-
-        # button to show frame 2 with text
-        # layout2
-        button1 = ttk.Button(self, text ="Page 1",
-                            command = lambda : controller.show_frame(Page1))
-    
-        # putting the button in its place by 
-        # using grid
-        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
-
-        # button to show frame 3 with text
-        # layout3
-        button2 = ttk.Button(self, text ="Startpage",
-                            command = lambda : controller.show_frame(StartPage))
-    
-        # putting the button in its place by
-        # using grid
-        button2.grid(row = 2, column = 1, padx = 10, pady = 10)
 
 # Driver Code
 app = tkinterApp()

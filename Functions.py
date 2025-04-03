@@ -8,6 +8,15 @@ spellbook = open("spellbook.json", "a")
 spellbook.close()
 
 def list_spells():
+    """
+    Fetches and lists all spell names from the D&D 5e API.
+
+    Makes a request to the D&D 5e API to retrieve spell data and stores the names
+    of all spells in a list. Returns the list of spell names.
+    
+    Returns:
+        list: A list of spell names.
+    """
     #Gets the spell data
     url = f"https://www.dnd5eapi.co/api/spells"
     response = requests.get(url)
@@ -26,6 +35,20 @@ def list_spells():
 
 
 def search_spell(spell_name):
+    """
+    Searches for a specific spell by name from the D&D 5e API.
+
+    This function takes a spell name as input, processes the name to make it suitable
+    for a URL request, and retrieves the spell data. It returns the spell name, level,
+    and description if found; otherwise, it returns a message indicating the spell was not found.
+
+    Args:
+        spell_name (str): The name of the spell to search for.
+
+    Returns:
+        str: A string containing the spell's name, level, and description, or a message indicating
+             the spell was not found.
+    """
     #Changes the input to be availiable for search
     fixedspell = str(spell_name.lower())
     fixspell = fixedspell.replace(" ","-")
@@ -41,6 +64,16 @@ def search_spell(spell_name):
         return "Spell not found"
 
 def add_spell_to_spellbook(spell_name):
+    """
+    Adds a spell to the user's spellbook (stored in a JSON file).
+
+    This function searches for the specified spell by name, retrieves the data from the
+    D&D 5e API, and appends the spell name and level to a JSON file (spellbook.json). 
+    If the spell is added successfully, a confirmation message is printed.
+
+    Args:
+        spell_name (str): The name of the spell to be added to the spellbook.
+    """
     #Changes the input to be availiable for search
     fixedspell = str(spell_name.lower())
     fixspell = fixedspell.replace(" ","-")
@@ -64,6 +97,16 @@ def add_spell_to_spellbook(spell_name):
 
 
 def view_spellbook():
+    """
+    Displays all spells currently stored in the spellbook (spellbook.json).
+
+    Opens the spellbook JSON file and reads its contents. If the file is empty, 
+    it returns a message indicating the spellbook is empty. Otherwise, it returns 
+    the content of the file.
+
+    Returns:
+        str: The contents of the spellbook file or a message indicating the file is empty.
+    """
     """Display all stored spells."""
     with open("spellbook.json", 'r') as spellbook:
         # Read the content of the file
