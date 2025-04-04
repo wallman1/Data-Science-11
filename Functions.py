@@ -107,7 +107,6 @@ def view_spellbook():
     Returns:
         str: The contents of the spellbook file or a message indicating the file is empty.
     """
-    """Display all stored spells."""
     with open("spellbook.json", 'r') as spellbook:
         # Read the content of the file
         file_content = spellbook.read()
