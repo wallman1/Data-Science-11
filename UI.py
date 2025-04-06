@@ -1,5 +1,3 @@
-from logging import debug
-import json
 import tkinter as tk
 from tkinter import ttk
 from Functions import search_spell, add_spell_to_spellbook, view_spellbook, list_spells

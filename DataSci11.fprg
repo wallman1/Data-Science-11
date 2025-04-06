@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
-<flowgorithm fileversion="2.0">
+<flowgorithm fileversion="4.2">
     <attributes>
         <attribute name="name" value=""/>
         <attribute name="authors" value="william.coote5"/>
         <attribute name="about" value=""/>
-        <attribute name="saved" value="2025-03-10 10:46:37 AM"/>
+        <attribute name="saved" value="2025-04-05 02:36:46 PM"/>
         <attribute name="created" value="d2lsbGlhbS5jb290ZTU7IEQ0NjEzNzAxOTZCN1A7IDIwMjUtMDMtMTA7IDA5OjM2OjAzIEFNOyAzNDg1"/>
         <attribute name="edited" value="d2lsbGlhbS5jb290ZTU7IEQ0NjEzNzAxOTZCN1A7IDIwMjUtMDMtMTA7IDEwOjQ2OjM3IEFNOyAzNDg1"/>
+        <attribute name="edited" value="d2lsbGk7TEFQVE9QLTZENTg4RURVOzIwMjUtMDQtMDU7MDI6MzY6NDYgUE07MTsyOTU0"/>
     </attributes>
     <function name="Main" type="None" variable="">
         <parameters/>
         <body>
-            <output expression="Please Choose:&#13;&#10;  - 1. Search Spells By Name&#13;&#10;  - 2. List All Spells&#13;&#10;  - 3. Add Spells To Spellbook&#13;&#10;  - 4. View Spellbook&#13;&#10;  - 5. Exit"/>
-            <declare name="Use" type="Integer" array="False" size="" variables="Use"/>
-            <declare name="Quit" type="Integer" array="False" size="" variables="Quit"/>
+            <output expression="Please Choose:&#13;&#10;  - 1. Search Spells By Name&#13;&#10;  - 2. List All Spells&#13;&#10;  - 3. Add Spells To Spellbook&#13;&#10;  - 4. View Spellbook&#13;&#10;  - 5. Exit" newline="True"/>
+            <declare name="Use" type="Integer" array="False" size=""/>
+            <declare name="Quit" type="Integer" array="False" size=""/>
             <assign variable="Quit" expression="0"/>
             <input variable="Use"/>
             <while expression="Quit == 0">
@@ -54,48 +55,48 @@
                     </else>
                 </if>
             </while>
-            <output expression="Thank You For Using"/>
+            <output expression="Thank You For Using" newline="True"/>
         </body>
     </function>
     <function name="ListSpells" type="None" variable="">
         <parameters/>
         <body>
-            <declare name="Sort" type="Integer" array="False" size="" variables="Sort"/>
+            <declare name="Sort" type="Integer" array="False" size=""/>
             <assign variable="Sort" expression="0"/>
             <while expression="Sort != 7">
-                <output expression="How Would You Like To Sort The List?:&#13;&#10;  - 1. Spell Level&#13;&#10;  - 2. Alphabetical&#13;&#10;  - 3. Range&#13;&#10;  - 4. Saving&#13;&#10;  - 5. Casting Time&#13;&#10;  - 6. Unsorted&#13;&#10;  - 7. Quit"/>
+                <output expression="How Would You Like To Sort The List?:&#13;&#10;  - 1. Spell Level&#13;&#10;  - 2. Alphabetical&#13;&#10;  - 3. Range&#13;&#10;  - 4. Saving&#13;&#10;  - 5. Casting Time&#13;&#10;  - 6. Unsorted&#13;&#10;  - 7. Quit" newline="True"/>
                 <input variable="Sort"/>
                 <if expression="Sort == 1">
                     <then>
-                        <output expression="List Sorted By Spell Level"/>
+                        <output expression="List Sorted By Spell Level" newline="True"/>
                     </then>
                     <else>
                         <if expression="Sort == 2">
                             <then>
-                                <output expression="List Sorted Alphabetically"/>
+                                <output expression="List Sorted Alphabetically" newline="True"/>
                             </then>
                             <else>
                                 <if expression="Sort == 3">
                                     <then>
-                                        <output expression="List Sorted By Range"/>
+                                        <output expression="List Sorted By Range" newline="True"/>
                                     </then>
                                     <else>
                                         <if expression="Sort == 4">
                                             <then>
-                                                <output expression="List Sorted By Saving Throw"/>
+                                                <output expression="List Sorted By Saving Throw" newline="True"/>
                                             </then>
                                             <else>
                                                 <if expression="Sort == 5">
                                                     <then>
-                                                        <output expression="List Sorted By Casting Time"/>
+                                                        <output expression="List Sorted By Casting Time" newline="True"/>
                                                     </then>
                                                     <else>
                                                         <if expression="Sort == 6">
                                                             <then>
-                                                                <output expression="Unsorted List"/>
+                                                                <output expression="Unsorted List" newline="True"/>
                                                             </then>
                                                             <else>
-                                                                <output expression="Please Input A Valid Response"/>
+                                                                <output expression="Please Input A Valid Response" newline="True"/>
                                                             </else>
                                                         </if>
                                                     </else>
@@ -118,16 +119,16 @@
         </parameters>
         <body>
             <input variable="SpellName"/>
-            <declare name="Finish" type="Integer" array="False" size="" variables="Finish"/>
+            <declare name="Finish" type="Integer" array="False" size=""/>
             <assign variable="Finish" expression="0"/>
             <while expression="Finish = 0">
                 <if expression="SpellName in Spells">
                     <then>
-                        <output expression="SpellValues"/>
-                        <output expression="Would You Like To Add To Spell Book?:&#13;&#10;  - 1. Yes&#13;&#10;  - 2. No"/>
-                        <declare name="Inp" type="Integer" array="False" size="" variables="Inp"/>
+                        <output expression="SpellValues" newline="True"/>
+                        <output expression="Would You Like To Add To Spell Book?:&#13;&#10;  - 1. Yes&#13;&#10;  - 2. No" newline="True"/>
+                        <declare name="Inp" type="Integer" array="False" size=""/>
                         <input variable="Inp"/>
-                        <declare name="Fin" type="Integer" array="False" size="" variables="Fin"/>
+                        <declare name="Fin" type="Integer" array="False" size=""/>
                         <assign variable="Fin" expression="0"/>
                         <while expression="Fin == 0">
                             <if expression="Inp == 1">
@@ -141,7 +142,7 @@
                                             <assign variable="Fin" expression="1"/>
                                         </then>
                                         <else>
-                                            <output expression="Pleas Input A Number Between 1 And 2"/>
+                                            <output expression="Pleas Input A Number Between 1 And 2" newline="True"/>
                                         </else>
                                     </if>
                                 </else>
@@ -150,7 +151,7 @@
                         <input variable="Finish"/>
                     </then>
                     <else>
-                        <output expression="Please Input A Valid Spell Name"/>
+                        <output expression="Please Input A Valid Spell Name" newline="True"/>
                     </else>
                 </if>
             </while>

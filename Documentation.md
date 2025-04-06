@@ -2,19 +2,46 @@
 
 ### Functional Requirements
 
-- The project needs to be able to allow the user to view data  
-- The project needs to handle errors and edge cases cleanly and properly  
-- The project needs to have a user interface that is clear and concise  
-- The project needs to access data without the loading of a csv file  
-- The user needs to be able to access the stats of each spell
+#### View Data:
+
+- Users are to have easy access to the information about spells in D&D 5e including but not limited to their titles, levels, and descriptions.
+
+#### Error Handling:
+
+- The application must manage errors, including inputs that don’t match with expected results, and API errors, in a way that can be identified from the application.
+
+#### User Interface:
+
+- In terms of aesthetics, the UI requires that the user can easily carry out navigation on intuitive pathways while accessing functions including spell search and spellbook management, which are logically structured consonant with usability principles.
+
+#### Data Access:
+
+- The application must always use real-time data, without using static files as a source, directly sourcing spell data from the D&D 5e API.
+
+#### Spell Stats Access:
+
+- Users need to access information detailing spells through search by name.
+
+#### Spellbook Management:
+
+- Users are able to add to the personal spellbook that they own by adding spells to it, enabling them to view the content of the spellbook at any selected duration and refresh its content whenever they choose.
 
 ### Non-Functional Requirements
 
-- The project should have an aesthetically pleasing interface  
-- The project should save past interactions  
-- The project should have a graphical user interface  
-- The project should be able to run quickly and efficiently  
-- The code should be devoid of any redundancies
+#### Aesthetic Interface:
+
+- The user interface should not only be easy to use but also visually appealing along with containing consistent design elements which will help improve layout.
+
+#### Persistence:
+
+- Every action taken by the user such as adding spells must be recorded and retrieved during subsequent sessions, meaning the information must persist across interactions with the application.
+
+#### GUI:
+
+- The application must come along with a graphical user interface which should be constructed in Tkinter or any other relevant library.
+
+#### Performance:
+- Even with large databases of spells, the application must quickly and seamlessly conduct searches, add new spells, or access the spellbook.
 
 ## Pseudocode
 function ListSpells  
@@ -212,6 +239,9 @@ end function
 ### Search Spells
 ![alt text](/Flow3.png)
 
+## Gantt Chart
+![alt text](/Gantt.png) 
+
 ## Commit Records
 - March 5th
 
@@ -256,3 +286,16 @@ I worked on getting the list spells function to display properly and worked on f
 - March 31st
 
 I got the list spells function to scroll within the GUI and completed the update spellbook function to allow for real time updating of the spellbook. I will finish polishing the code next.
+
+## Maintainance
+### Monitoring Changes to the API
+As API alters, one needs to watch out for any new changes regarding the endpoints and any new parameters or response formats in the monitored API. To ensure sustained endurance, always opt for stable versions of the API. Balance the use of try-except blocks to gracefully manage errors, which can stem from the API or response modifications. Use try-except blocks of sufficient robustness to manage anticipative changes like errors from the API or response structure changes. api diagnosed issues with logging which aids keeping track of changes or lost requests. Along with that consider having secondary APIs set in place to prevent facing dead endpoints.
+
+### Compatibility with Python and Libraries
+Virtual environments are indispensable tools in managing a project’s dependencies, ensuring there are no conflicting requirements across multiple projects. Also checking if the requests and matplotlib have been updated and refresh them. Use the latest release of python and regularly check for any new publications to maintain compatibility across new releases for the program.
+
+### After Deployement Fixing Bugs Post
+When fixing a bug after deployment, I need to first replicate the issue by reproducing the conditions under which the error occurred. Use debugging tools, such as pdb, to trace the problem and pinpoint the exact cause. Once identified, implement the necessary fix and test it thoroughly to ensure the bug is resolved and no new issues are introduced. After testing, deploy the updated version and continue to monitor the program for any further issues.
+
+## Final Evaluation
+The application meets the operational needs of displaying spell details, handling a spellbook, and interacting through a user-friendly interface for D&D 5e spells. There is reasonable usability of the application; however, it could be improved by better error management, design, and overall speed of execution. Also, the handling of files and validation of user data could be improved to make sure user information is consistent throughout sessions. The system's architectural style along with its code comments are accurate, but the application’s functionality and overall user experience would benefit from more refined interface and user interaction design alongside additional sophisticated usability features.
