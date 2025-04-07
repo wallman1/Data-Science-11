@@ -46,51 +46,58 @@
 ## Pseudocode
 function ListSpells  
 
-    Sort \= 0  
+    Sort == 0  
 
     loop while Sort ≠ 7  
 
-        output  
+        output How Would You Like To Sort The List?:
+            - 1. Spell Level
+            - 2. Alphabetical
+            - 3. Range
+            - 4. Saving
+            - 5. Casting Time
+            - 6. Unsorted
+            - 7. Quit 
 
         input Sort  
 
-        if Sort \= 1 then  
+        if Sort == 1 then  
 
-            output  
+            output List Sorted By Spell Level 
 
         else  
 
-            if Sort \= 2 then  
+            if Sort == 2 then  
 
-                output  
+                output List Sorted Alphabetically 
 
             else  
 
-                if Sort \= 3 then  
+                if Sort == 3 then  
 
-                    output  
+                    output List Sorted By Range 
 
                 else  
 
-                    if Sort \= 4 then  
+                    if Sort == 4 then  
 
-                        output  
+                        output List Sorted By Saving Throw
 
                     else  
 
-                        if Sort \= 5 then  
+                        if Sort == 5 then  
 
-                            output  
+                            output  List Sorted By Casting Time
 
                         else  
 
-                            if Sort \= 6 then  
+                            if Sort == 6 then  
 
-                                output  
+                                output Unsorted List
 
                             else  
 
-                                output  
+                                output Please Input A Valid Response
 
                             end if  
 
@@ -116,9 +123,9 @@ function SearchSpells (SpellName)
 
     input SpellName  
 
-    Finish \= 0  
+    Finish == 0  
 
-    loop while Finish \= 0  
+    loop while Finish == 0  
 
         if  then  
 
@@ -128,25 +135,25 @@ function SearchSpells (SpellName)
 
             input Inp  
 
-            Fin \= 0  
+            Fin == 0  
 
-            loop while Fin \= 0  
+            loop while Fin == 0  
 
-                if Inp \= 1 then  
+                if Inp == 1 then  
 
                     AddSpell()  
 
-                    Fin \= 1  
+                    Fin == 1  
 
                 else  
 
-                    if Inp \= 2 then  
+                    if Inp == 2 then  
 
-                        Fin \= 1  
+                        Fin == 1  
 
                     else  
 
-                        output  
+                        output Pleas Input A Number Between 1 And 2 
 
                     end if  
 
@@ -158,7 +165,7 @@ function SearchSpells (SpellName)
 
         else  
 
-            output  
+            output Please Input A Valid Spell Name 
 
         end if  
 
@@ -174,39 +181,39 @@ function Main
 
     output  
 
-    Quit \= 0  
+    Quit == 0  
 
     input Use  
 
-    loop while Quit \= 0  
+    loop while Quit == 0  
 
-        if Use \= 1 then  
+        if Use == 1 then  
 
             SearchSpells()  
 
         else  
 
-            if Use \= 2 then  
+            if Use == 2 then  
 
                 ListSpells()  
 
             else  
 
-                if Use \= 3 then  
+                if Use == 3 then  
 
                     AddSpells()  
 
                 else  
 
-                    if Use \= 4 then  
+                    if Use == 4 then  
 
                         ViewSpells()  
 
                     else  
 
-                        if Use \= 5 then  
+                        if Use == 5 then  
 
-                            Quit \= 1  
+                            Quit == 1  
 
                         else  
 
@@ -241,6 +248,13 @@ end function
 
 ## Gantt Chart
 ![alt text](/Gantt.png) 
+
+## Data Dictionary
+| Variable    | Data Type | Format for display | Size in bites | Size for display | Description                             | Example                                                                                                                                            | Validation                                      |
+| ----------- | --------- | ------------------ | ------------- | ---------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Level       | Integer   | Whole Number       | 2             | 1                | The level of the spell                  | 1                                                                                                                                                  | Must be a number between 0 and 5                |
+| Name        | String    | Text               | 50            | 50               | The name of the spell                   | Fire Bolt                                                                                                                                          | Must be a valid spell name                      |
+| Description | String    | Text               | 200           | 200              | The description of the use of the spell | A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. | Must be a valid string that describes the spell |
 
 ## Commit Records
 - March 5th
@@ -296,6 +310,12 @@ Virtual environments are indispensable tools in managing a project’s dependenc
 
 ### After Deployement Fixing Bugs Post
 When fixing a bug after deployment, I need to first replicate the issue by reproducing the conditions under which the error occurred. Use debugging tools, such as pdb, to trace the problem and pinpoint the exact cause. Once identified, implement the necessary fix and test it thoroughly to ensure the bug is resolved and no new issues are introduced. After testing, deploy the updated version and continue to monitor the program for any further issues.
+
+## Peer Evaluation
+### Person 1 - Miles
+The program was very cool, The list of spells was very helpful because otherwise, I would be completely lost. The description of the spells was helpful, and layed out in a way that made very much sense. The spells storing over between sessions was a cool add on. Overall 11/10
+### Person 2 - Viv
+This program completed all the requirements of a fucntional API system, clearly displaying all the information needed. The GUI showed all the functions available and was very awesome. The code responded to incorrect code inputs and stored speels neatly. The system being able to save past information after being closed is a very useful and impressive fucntion that improves the user's experience. This sytem was very well coded and every function was completed with great planning and implementation. 11/10
 
 ## Final Evaluation
 The application meets the operational needs of displaying spell details, handling a spellbook, and interacting through a user-friendly interface for D&D 5e spells. There is reasonable usability of the application; however, it could be improved by better error management, design, and overall speed of execution. Also, the handling of files and validation of user data could be improved to make sure user information is consistent throughout sessions. The system's architectural style along with its code comments are accurate, but the application’s functionality and overall user experience would benefit from more refined interface and user interaction design alongside additional sophisticated usability features.

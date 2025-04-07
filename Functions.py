@@ -75,25 +75,28 @@ def add_spell_to_spellbook(spell_name):
         spell_name (str): The name of the spell to be added to the spellbook.
     """
     #Changes the input to be availiable for search
-    fixedspell = str(spell_name.lower())
-    fixspell = fixedspell.replace(" ","-")
-    #Searches through the api for the spell
-    url = f"https://www.dnd5eapi.co/api/spells/{fixspell}"
-    response = requests.get(url)
-    spell_data = response.json()
-    #Converts the data into data to be stored
-    lvl = str(spell_data["level"])
-    x = str(spell_name + " Level: " + lvl)
-    z = str(x + "\n")
-    tempbook.append(z)
-    y = json.dumps(x)
-    y = f"{y} \n"
-    if spell_name:
-        #Stores the data in a json file
-        spellbook = open("spellbook.json", "a")
-        spellbook.write(y)
-        spellbook.close()
-        print(f"Added {spell_name} to your spellbook!")
+    try:
+        fixedspell = str(spell_name.lower())
+        fixspell = fixedspell.replace(" ","-")
+        #Searches through the api for the spell
+        url = f"https://www.dnd5eapi.co/api/spells/{fixspell}"
+        response = requests.get(url)
+        spell_data = response.json()
+        #Converts the data into data to be stored
+        lvl = str(spell_data["level"])
+        x = str(spell_name + " Level: " + lvl)
+        z = str(x + "\n")
+        tempbook.append(z)
+        y = json.dumps(x)
+        y = f"{y} \n"
+        if spell_name:
+            #Stores the data in a json file
+            spellbook = open("spellbook.json", "a")
+            spellbook.write(y)
+            spellbook.close()
+            print(f"Added {spell_name} to your spellbook!")
+    except:
+        print("Cannot add spell")
 
 
 def view_spellbook():
