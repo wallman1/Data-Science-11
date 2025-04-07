@@ -257,49 +257,49 @@ end function
 | Description | String    | Text               | 200           | 200              | The description of the use of the spell | A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame. | Must be a valid string that describes the spell |
 
 ## Commit Records
-- March 5th
+March 5th
 
-Today I created the nessecary files for the project and added the initial funtions for the api work. I will start work on devolping a GUI with TKInter next.
+Today I created the correct project files and set up the initial architecture for the application. I set up the basic functionality for interacting with the API, which will set the stage for continuing further development. This included setting up API calls and allowing the framework to support minimal retrieval of data. Next, I will begin to create the graphical user interface (GUI) with TKInter.
 
-- March 10th
+March 10th
 
-Worked on adding a GUI and learnt how to create labels and buttons with TKInter. I will continue work on the GUI next.
+I began working on implementing the GUI and how to construct basic elements like labels and buttons using TKInter. I was taught event handling and widget layout management so that I can create a working and user-friendly interface. At the next phase, I will increase the number of elements on the interface and render its look more refined.
 
-- March 11th
+March 11th
 
-Worked on making a TKInter application with object oriented coding allowing for easier additions to the application. I will work on using tkinter and fixing bugs next.
+I switched to an object-oriented approach to building the TKInter application, which made it easier to maintain and expand the project. By creating classes and methods, I created a more structured framework that will make it easier to add future additions and updates. My focus now is on eliminating any bugs that have occurred and further developing the GUI's functionality.
 
-- March 17th
+March 17th
 
-Fixed bug within the api functions and experitmented with custom TKInter. I will work on using text entry boxes.
+I spent time working on a bug in the API functions that caused unintended behavior when getting data. I also attempted to create custom TKInter widgets to improve the UI experience, such as custom buttons and more efficient layout managers. My next assignment is to incorporate text entry boxes into the program so that the user can input data into the program.
 
-- March 18th
+March 18th
 
-Worked on getting text entries impelmented, also implemented the search spells function using the api. I will work on adding the spellbook next.
+Today, I was able to successfully implement the text entry boxes in the TKInter GUI so that users may input values. I also implemented the search spells feature through the API, which retrieves and shows relevant information based on user queries. This is a critical step towards enabling user interaction with the spellbook. The next step will be working towards implementing the actual spellbook feature.
 
-- March 19th
+March 19th
 
-Added the a txt file spellbook and changed the search spells function to encompass more use cases. I wil create a list spells function next.
+I added a text file-based spellbook to the project, providing an effortless way to save and load spells. I also modified the search spells function so that it can handle a greater range of user input, thus making it more flexible. This modification allows users to search for spells with various parameters. In the future, I will add a list spells function to display the results in an organized manner.
 
-- March 21st
+March 21st
 
-I fixed a few of the bugs in the GUI and added the list spells function. I will finish debugging the main errors within the code next.
+I fix some of the most important bugs in the GUI, including its responsiveness and appearance. I have also added the list spells function, which shows and lists all available spells. The next task will be fixing the main issues in the code and ensuring everything works flawlessly.
 
-- March 22nd
+March 22nd
 
-I fixed many of the larger errors inside the code allowing for progress to continue. I will work on the list spells function to allow for a different display approach next.
+Today I worked on some of the larger bugs in the app that were holding things up, namely in functionality and data flow. After those were resolved, I could get back to work on the list spells function. Most of the emphasis from now on will be redoing the display logic so that there can be a more user-friendly and flexible presentation of the list.
 
-- March 24
+March 24th
 
-I worked on getting the list spells function ready for use within the GUI and fixed a few oustanding bugs. I will work on displaying the list spells function next.
+I continued to work on the list spells function, preparing it to become an effortless part of the GUI. I also fixed some small outstanding issues involving widget interaction and data handling. The list spells function is now effectively ready to be implemented. The next thing of note is ensuring it appears properly in the GUI.
 
-- March 25th
+March 25th
 
-I worked on getting the list spells function to display properly and worked on fixing the spellbook functions. I will continue working on the list spells function next.
+I focused on making the list spells function display correctly in the GUI, with all of the spell details being neatly laid out. I also focused on fixing errors with the operation of the spellbook, namely adding, modifying, and saving spells. The next task will be to continue developing the list spells feature, with a focus on the user interface.
 
-- March 31st
+March 31st
 
-I got the list spells function to scroll within the GUI and completed the update spellbook function to allow for real time updating of the spellbook. I will finish polishing the code next.
+I was able to add a scrolling feature to the list spells function, which made it more efficient and capable of handling large data. I also completed the update spellbook function, which now allows users to update their spellbook in real time, with changes being stored instantly. The next step will be to finish the application by cleaning up the code, making it more efficient, and enhancing the user interface.
 
 ## Maintainance
 ### Monitoring Changes to the API
