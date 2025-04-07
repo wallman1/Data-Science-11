@@ -308,7 +308,7 @@ As API alters, one needs to watch out for any new changes regarding the endpoint
 ### Compatibility with Python and Libraries
 Virtual environments are indispensable tools in managing a project’s dependencies, ensuring there are no conflicting requirements across multiple projects. Also checking if the requests and matplotlib have been updated and refresh them. Use the latest release of python and regularly check for any new publications to maintain compatibility across new releases for the program.
 
-### After Deployement Fixing Bugs Post
+### After Deployement Fixing Bugs
 When fixing a bug after deployment, I need to first replicate the issue by reproducing the conditions under which the error occurred. Use debugging tools, such as pdb, to trace the problem and pinpoint the exact cause. Once identified, implement the necessary fix and test it thoroughly to ensure the bug is resolved and no new issues are introduced. After testing, deploy the updated version and continue to monitor the program for any further issues.
 
 ## Peer Evaluation

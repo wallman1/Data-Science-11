@@ -84,7 +84,7 @@ def add_spell_to_spellbook(spell_name):
         spell_data = response.json()
         #Converts the data into data to be stored
         lvl = str(spell_data["level"])
-        x = str(spell_name + " Level: " + lvl)
+        x = str(fixspell + " Level: " + lvl)
         z = str(x + "\n")
         tempbook.append(z)
         y = json.dumps(x)
@@ -94,7 +94,7 @@ def add_spell_to_spellbook(spell_name):
             spellbook = open("spellbook.json", "a")
             spellbook.write(y)
             spellbook.close()
-            print(f"Added {spell_name} to your spellbook!")
+            print(f"Added {fixspell} to your spellbook!")
     except:
         print("Cannot add spell")
 
