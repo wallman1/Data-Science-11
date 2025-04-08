@@ -104,7 +104,7 @@ class StartPage(tk.Frame):
             myscroll.config(command=listbox.yview)
             listbox.config(yscrollcommand=myscroll.set)
 
-        button3 = ttk.Button(self, text = "List (Some) Spells", command = listing)
+        button3 = ttk.Button(self, text = "List Spells", command = listing)
         button3.grid(row = 3, column = 1, padx = 10, pady = 10)
 
 # second window frame page1 
